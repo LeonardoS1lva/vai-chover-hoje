@@ -101,16 +101,48 @@
               <strong class="text-h5 text-weight-bold text-blue-grey-10"
                 >{{ forecast.probability }}%</strong
               >
-              <span>de chance de chuva</span>
+              <span>chance máxima hoje</span>
             </p>
+            <section
+              class="hourly-forecast column full-width q-mt-lg"
+              aria-label="Probabilidade de chuva por horário"
+            >
+              <div
+                class="row items-baseline justify-between q-gutter-x-sm"
+                aria-live="polite"
+              >
+                <span class="text-body2 text-blue-grey-7">Por horário</span>
+                <strong class="text-subtitle1 text-weight-bold text-blue-grey-10">
+                  {{ selectedHourlyForecast.time.slice(11, 13) }}h ·
+                  {{ selectedHourlyForecast.probability }}%
+                </strong>
+              </div>
+              <q-slider
+                v-model="selectedHourIndex"
+                :min="0"
+                :max="forecast.hourly.length - 1"
+                :step="1"
+                :disable="forecast.hourly.length < 2"
+                color="light-blue-8"
+                track-color="blue-grey-2"
+                thumb-color="light-blue-9"
+                markers
+                snap
+                aria-label="Selecionar horário da previsão"
+              />
+              <div class="row justify-between text-caption text-blue-grey-5">
+                <span>{{ forecast.hourly[0].time.slice(11, 13) }}h</span>
+                <span>{{ forecast.hourly[forecast.hourly.length - 1].time.slice(11, 13) }}h</span>
+              </div>
+            </section>
             <p
               v-if="forecast.location"
-              class="location-name row items-center q-gutter-x-xs text-blue-grey-8 text-weight-medium q-mt-xl q-mb-none"
+              class="location-name row items-center q-gutter-x-xs text-blue-grey-8 text-weight-medium q-mt-lg q-mb-none"
             >
               <q-icon class="text-blue-grey-5" name="place" size="18px" aria-hidden="true" />
               {{ forecast.location }}
             </p>
-            <p v-else class="location-name text-blue-grey-6 text-weight-medium q-mt-xl q-mb-none">
+            <p v-else class="location-name text-blue-grey-6 text-weight-medium q-mt-lg q-mb-none">
               Sua localização
             </p>
             <p class="updated-label text-blue-grey-5 text-caption q-mt-sm q-mb-none">
@@ -138,10 +170,16 @@
 </template>
 
 <script setup>
-import { onMounted } from 'vue'
+import { computed, onMounted, ref, watch } from 'vue'
 import { useRainCheck } from '../../composables/useRainCheck.js'
 
 const { forecast, errorType, isLoading, checkWeather } = useRainCheck()
+const selectedHourIndex = ref(0)
+const selectedHourlyForecast = computed(() => forecast.value.hourly[selectedHourIndex.value])
+
+watch(forecast, () => {
+  selectedHourIndex.value = 0
+})
 
 onMounted(checkWeather)
 </script>

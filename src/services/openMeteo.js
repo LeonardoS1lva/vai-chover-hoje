@@ -32,27 +32,28 @@ export async function getTodayForecast({ latitude, longitude }) {
   }
 
   const today = currentTime.slice(0, 10)
-  const remainingProbabilities = times.reduce((values, time, index) => {
+  const hourly = times.reduce((values, time, index) => {
     if (
       typeof time === 'string' &&
       time.slice(0, 10) === today &&
       time >= currentTime &&
       typeof probabilities[index] === 'number'
     ) {
-      values.push(probabilities[index])
+      values.push({ time, probability: probabilities[index] })
     }
 
     return values
   }, [])
 
-  if (remainingProbabilities.length === 0) {
+  if (hourly.length === 0) {
     throw new Error('A previsão de hoje não está disponível.')
   }
 
-  const probability = Math.max(...remainingProbabilities)
+  const probability = Math.max(...hourly.map(({ probability }) => probability))
 
   return {
     probability,
+    hourly,
     weatherCode: data.current?.weather_code,
     willRain: probability >= RAIN_PROBABILITY_THRESHOLD,
   }
