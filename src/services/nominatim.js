@@ -51,7 +51,7 @@ export async function getLocationName({ latitude, longitude }) {
   const countryCode = address.country_code?.toLowerCase()
   const stateCode = address['ISO3166-2-lvl4']?.split('-').at(-1)
   const state = countryCode === 'br' ? stateCode || address.state : address.state
-  const locationParts = [city, state]
+  const locationParts = [address.suburb, city, state]
 
   if (countryCode !== 'br' && address.country) {
     locationParts.push(address.country)
