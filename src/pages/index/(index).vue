@@ -1,6 +1,6 @@
 <template>
   <q-page
-    class="weather-page column items-center justify-center q-px-lg q-py-lg bg-blue-grey-1 text-blue-grey-10"
+    class="weather-page column items-center justify-center q-pa-lg bg-blue-grey-1 text-blue-grey-10"
   >
     <div class="app-shell column full-width">
       <header class="app-header row items-center q-gutter-x-sm q-px-xs q-py-sm">
