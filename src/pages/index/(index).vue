@@ -1,37 +1,66 @@
 <template>
-  <q-page class="weather-page">
-    <div class="app-shell">
-      <header class="app-header">
-        <div class="brand-mark" aria-hidden="true">
+  <q-page
+    class="weather-page column items-center justify-center q-px-lg q-py-lg bg-blue-grey-1 text-blue-grey-10"
+  >
+    <div class="app-shell column full-width">
+      <header class="app-header row items-center q-gutter-x-sm q-px-xs q-py-sm">
+        <q-avatar
+          class="brand-mark"
+          size="34px"
+          rounded
+          color="light-blue-1"
+          text-color="light-blue-9"
+          aria-hidden="true"
+        >
           <q-icon name="water_drop" size="20px" />
-        </div>
-        <span class="brand-name">vai chover hoje?</span>
+        </q-avatar>
+        <span class="brand-name text-blue-grey-8 text-body1 text-weight-medium">
+          vai chover hoje?
+        </span>
       </header>
 
-      <main class="weather-content">
-        <section class="weather-panel" aria-live="polite" aria-atomic="true">
-          <div v-if="isLoading" class="state-content">
-            <div class="weather-symbol weather-symbol--loading" aria-hidden="true">
+      <main class="weather-content column col">
+        <q-card
+          class="weather-panel column col items-center justify-center q-py-xl q-px-lg text-center"
+          flat
+          bordered
+          tag="section"
+          aria-live="polite"
+          aria-atomic="true"
+        >
+          <div v-if="isLoading" class="state-content column items-center full-width">
+            <div class="weather-symbol flex flex-center bg-light-blue-1 q-mb-lg" aria-hidden="true">
               <q-spinner-dots color="primary" size="34px" />
             </div>
-            <p class="eyebrow">SÓ UM INSTANTE</p>
-            <h1 class="state-title state-title--loading">Verificando o tempo...</h1>
-            <p class="supporting-copy">Buscando sua localização e a previsão para hoje.</p>
+            <p class="eyebrow text-overline text-blue-grey-5 text-weight-bold q-ma-none q-mb-md">
+              SÓ UM INSTANTE
+            </p>
+            <h1 class="state-title state-title--loading text-blue-grey-9 q-ma-none">
+              Verificando o tempo...
+            </h1>
+            <p class="supporting-copy text-blue-grey-6 text-body2 q-mt-md q-mb-none">
+              Buscando sua localização e a previsão para hoje.
+            </p>
           </div>
 
-          <div v-else-if="errorType" class="state-content">
-            <div class="weather-symbol weather-symbol--error" aria-hidden="true">
+          <div v-else-if="errorType" class="state-content column items-center full-width">
+            <div
+              class="weather-symbol flex flex-center bg-grey-2 text-blue-grey-6 q-mb-lg"
+              aria-hidden="true"
+            >
               <q-icon :name="errorType === 'location' ? 'location_off' : 'cloud_off'" size="30px" />
             </div>
-            <p class="eyebrow">{{ errorType === 'location' ? 'LOCALIZAÇÃO' : 'PREVISÃO' }}</p>
-            <h1 class="state-title state-title--error">
+            <p class="eyebrow text-overline text-blue-grey-5 text-weight-bold q-ma-none q-mb-md">
+              {{ errorType === 'location' ? 'LOCALIZAÇÃO' : 'PREVISÃO' }}
+            </p>
+            <h1 class="state-title state-title--error text-blue-grey-9 q-ma-none">
               {{
                 errorType === 'location'
                   ? 'Não foi possível obter sua localização.'
                   : 'Não foi possível consultar a previsão.'
               }}
             </h1>
-            <p class="supporting-copy">
+            <p class="supporting-copy text-blue-grey-6 text-body2 q-mt-md q-mb-none">
               {{
                 errorType === 'location'
                   ? 'Precisamos da sua localização para verificar a chance de chuva onde você está.'
@@ -39,7 +68,7 @@
               }}
             </p>
             <q-btn
-              class="retry-button"
+              class="retry-button q-mt-lg q-px-lg text-weight-medium"
               color="primary"
               unelevated
               rounded
@@ -49,34 +78,53 @@
             />
           </div>
 
-          <div v-else-if="forecast" class="state-content">
+          <div v-else-if="forecast" class="state-content column items-center full-width">
             <div
-              class="weather-symbol"
-              :class="forecast.willRain ? 'weather-symbol--rain' : 'weather-symbol--sun'"
+              class="weather-symbol flex flex-center q-mb-lg"
+              :class="forecast.willRain ? 'bg-light-blue-1' : 'bg-amber-1'"
               aria-hidden="true"
             >
               <span>{{ forecast.willRain ? '☔' : '☀️' }}</span>
             </div>
-            <p class="eyebrow">PREVISÃO DE HOJE</p>
-            <h1 class="state-title" :class="forecast.willRain ? 'text-rain' : 'text-sun'">
+            <p class="eyebrow text-overline text-blue-grey-5 text-weight-bold q-ma-none q-mb-md">
+              PREVISÃO DE HOJE
+            </p>
+            <h1
+              class="state-title q-ma-none"
+              :class="forecast.willRain ? 'text-light-blue-9' : 'text-amber-9'"
+            >
               {{ forecast.willRain ? 'VAI CHOVER' : 'NÃO VAI CHOVER' }}
             </h1>
-            <p class="rain-probability">
-              <strong>{{ forecast.probability }}%</strong>
+            <p
+              class="rain-probability row items-baseline justify-center q-gutter-x-sm text-blue-grey-7 text-body1 q-mt-lg q-mb-none"
+            >
+              <strong class="text-h5 text-weight-bold text-blue-grey-10"
+                >{{ forecast.probability }}%</strong
+              >
               <span>de chance de chuva</span>
             </p>
-            <p v-if="forecast.location" class="location-name">
-              <q-icon name="place" size="18px" aria-hidden="true" />
+            <p
+              v-if="forecast.location"
+              class="location-name row items-center q-gutter-x-xs text-blue-grey-8 text-weight-medium q-mt-xl q-mb-none"
+            >
+              <q-icon class="text-blue-grey-5" name="place" size="18px" aria-hidden="true" />
               {{ forecast.location }}
             </p>
-            <p v-else class="location-name location-name--generic">Sua localização</p>
-            <p class="updated-label">Hoje <span aria-hidden="true">·</span> Atualizado agora</p>
+            <p v-else class="location-name text-blue-grey-6 text-weight-medium q-mt-xl q-mb-none">
+              Sua localização
+            </p>
+            <p class="updated-label text-blue-grey-5 text-caption q-mt-sm q-mb-none">
+              Hoje <span aria-hidden="true">·</span> Atualizado agora
+            </p>
           </div>
-        </section>
+        </q-card>
 
-        <footer class="app-footer">
+        <footer
+          class="app-footer row justify-between q-gutter-x-md q-px-xs q-pt-lg q-pb-sm text-blue-grey-5 text-caption"
+        >
           <span>Uma resposta simples para o seu dia.</span>
           <a
+            class="text-blue-grey-6"
             href="https://www.openstreetmap.org/copyright"
             target="_blank"
             rel="noopener noreferrer"
