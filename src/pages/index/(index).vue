@@ -81,19 +81,16 @@
           <div v-else-if="forecast" class="state-content column items-center full-width">
             <div
               class="weather-symbol flex flex-center q-mb-lg"
-              :class="forecast.willRain ? 'bg-light-blue-1' : 'bg-amber-1'"
+              :class="forecast.rainRisk.background"
               aria-hidden="true"
             >
-              <span>{{ forecast.willRain ? '☔' : '☀️' }}</span>
+              <RainRiskIcon :type="forecast.rainRisk.icon" />
             </div>
             <p class="eyebrow text-overline text-blue-grey-5 text-weight-bold q-ma-none q-mb-md">
               PREVISÃO DE HOJE
             </p>
-            <h1
-              class="state-title q-ma-none"
-              :class="forecast.willRain ? 'text-light-blue-9' : 'text-amber-9'"
-            >
-              {{ forecast.willRain ? 'VAI CHOVER' : 'NÃO VAI CHOVER' }}
+            <h1 class="state-title q-ma-none" :class="forecast.rainRisk.text">
+              {{ forecast.rainRisk.title }}
             </h1>
             <p
               class="rain-probability row items-baseline justify-center q-gutter-x-sm text-blue-grey-7 text-body1 q-mt-lg q-mb-none"
@@ -183,6 +180,7 @@
 
 <script setup>
 import { computed, onMounted, ref, watch } from 'vue'
+import RainRiskIcon from '../../components/RainRiskIcon.vue'
 import WeatherConditionIcon from '../../components/WeatherConditionIcon.vue'
 import { useRainCheck } from '../../composables/useRainCheck.js'
 import { getWeatherCondition } from '../../services/weatherConditions.js'

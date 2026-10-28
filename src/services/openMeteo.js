@@ -1,4 +1,4 @@
-export const RAIN_PROBABILITY_THRESHOLD = 50
+import { getRainRisk } from './rainRisk.js'
 
 const FORECAST_URL = 'https://api.open-meteo.com/v1/forecast'
 
@@ -50,11 +50,12 @@ export async function getTodayForecast({ latitude, longitude }) {
   }
 
   const probability = Math.max(...hourly.map(({ probability }) => probability))
+  const rainRisk = getRainRisk(probability)
 
   return {
     probability,
     hourly,
     weatherCode: data.current?.weather_code,
-    willRain: probability >= RAIN_PROBABILITY_THRESHOLD,
+    rainRisk,
   }
 }

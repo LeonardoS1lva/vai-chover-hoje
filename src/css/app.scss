@@ -45,11 +45,6 @@ a {
   border-radius: 28px;
 }
 
-.weather-symbol > span {
-  font-size: 42px;
-  line-height: 1;
-}
-
 .state-title {
   font-size: clamp(2.35rem, 9vw, 3.65rem);
   font-weight: 800;
@@ -100,9 +95,6 @@ a {
     border-radius: 25px;
   }
 
-  .weather-symbol > span {
-    font-size: 36px;
-  }
 }
 
 @media (prefers-reduced-motion: no-preference) {
