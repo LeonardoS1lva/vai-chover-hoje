@@ -103,14 +103,26 @@
               >
               <span>chance máxima hoje</span>
             </p>
+            <div
+              class="current-condition row items-center q-gutter-x-md q-py-md q-mt-lg full-width bg-blue-grey-1 text-left"
+              role="group"
+              aria-label="Condição meteorológica atual"
+            >
+              <div class="current-condition__icon flex flex-center">
+                <WeatherConditionIcon :code="forecast.weatherCode" size="48px" />
+              </div>
+              <div class="column items-start">
+                <span class="text-overline text-blue-grey-5 text-weight-bold">Agora</span>
+                <strong class="text-subtitle2 text-blue-grey-10">
+                  {{ currentCondition.label }}
+                </strong>
+              </div>
+            </div>
             <section
               class="hourly-forecast column full-width q-mt-lg"
               aria-label="Probabilidade de chuva por horário"
             >
-              <div
-                class="row items-baseline justify-between q-gutter-x-sm"
-                aria-live="polite"
-              >
+              <div class="row items-baseline justify-between q-gutter-x-sm" aria-live="polite">
                 <span class="text-body2 text-blue-grey-7">Por horário</span>
                 <strong class="text-subtitle1 text-weight-bold text-blue-grey-10">
                   {{ selectedHourlyForecast.time.slice(11, 13) }}h ·
@@ -171,9 +183,12 @@
 
 <script setup>
 import { computed, onMounted, ref, watch } from 'vue'
+import WeatherConditionIcon from '../../components/WeatherConditionIcon.vue'
 import { useRainCheck } from '../../composables/useRainCheck.js'
+import { getWeatherCondition } from '../../services/weatherConditions.js'
 
 const { forecast, errorType, isLoading, checkWeather } = useRainCheck()
+const currentCondition = computed(() => getWeatherCondition(forecast.value?.weatherCode))
 const selectedHourIndex = ref(0)
 const selectedHourlyForecast = computed(() => forecast.value.hourly[selectedHourIndex.value])
 

@@ -28,6 +28,17 @@ a {
   max-width: 420px;
 }
 
+.current-condition {
+  border-radius: 18px;
+}
+
+.current-condition__icon {
+  width: 56px;
+  height: 56px;
+  flex: 0 0 56px;
+  border-radius: 16px;
+}
+
 .weather-symbol {
   width: 88px;
   height: 88px;

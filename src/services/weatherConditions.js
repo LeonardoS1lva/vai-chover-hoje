@@ -1,0 +1,35 @@
+const WEATHER_CONDITIONS = {
+  0: { label: 'Céu limpo', icon: 'sunny' },
+  1: { label: 'Predominantemente limpo', icon: 'sunny' },
+  2: { label: 'Parcialmente nublado', icon: 'partly-cloudy' },
+  3: { label: 'Nublado', icon: 'cloudy' },
+  45: { label: 'Neblina', icon: 'fog' },
+  48: { label: 'Neblina congelante', icon: 'fog', frozen: true },
+  51: { label: 'Garoa fraca', icon: 'drizzle', intensity: 1 },
+  53: { label: 'Garoa moderada', icon: 'drizzle', intensity: 2 },
+  55: { label: 'Garoa intensa', icon: 'drizzle', intensity: 3 },
+  56: { label: 'Garoa congelante fraca', icon: 'drizzle', intensity: 1, frozen: true },
+  57: { label: 'Garoa congelante intensa', icon: 'drizzle', intensity: 3, frozen: true },
+  61: { label: 'Chuva fraca', icon: 'rain', intensity: 1 },
+  63: { label: 'Chuva moderada', icon: 'rain', intensity: 2 },
+  65: { label: 'Chuva forte', icon: 'rain', intensity: 3 },
+  66: { label: 'Chuva congelante fraca', icon: 'rain', intensity: 1, frozen: true },
+  67: { label: 'Chuva congelante forte', icon: 'rain', intensity: 3, frozen: true },
+  71: { label: 'Neve fraca', icon: 'snow', intensity: 1 },
+  73: { label: 'Neve moderada', icon: 'snow', intensity: 2 },
+  75: { label: 'Neve intensa', icon: 'snow', intensity: 3 },
+  77: { label: 'Grãos de neve', icon: 'snow', intensity: 1 },
+  80: { label: 'Pancadas de chuva fracas', icon: 'rain', intensity: 1 },
+  81: { label: 'Pancadas de chuva moderadas', icon: 'rain', intensity: 2 },
+  82: { label: 'Pancadas de chuva fortes', icon: 'rain', intensity: 3 },
+  85: { label: 'Pancadas de neve fracas', icon: 'snow', intensity: 1 },
+  86: { label: 'Pancadas de neve fortes', icon: 'snow', intensity: 3 },
+  95: { label: 'Tempestade', icon: 'storm', intensity: 1 },
+  96: { label: 'Tempestade com granizo fraco', icon: 'storm', intensity: 1, hail: true },
+  97: { label: 'Tempestade forte', icon: 'storm', intensity: 2 },
+  99: { label: 'Tempestade com granizo forte', icon: 'storm', intensity: 3, hail: true },
+}
+
+export function getWeatherCondition(code) {
+  return WEATHER_CONDITIONS[code] || { label: 'Condição atual indisponível', icon: 'cloudy' }
+}
