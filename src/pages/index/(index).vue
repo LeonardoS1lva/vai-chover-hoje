@@ -1,7 +1,11 @@
 <template>
   <q-page
-    class="weather-page column items-center justify-center q-pa-lg bg-blue-grey-1 text-blue-grey-10"
-    :class="forecast ? `weather-page--rain-${forecast.rainRisk.effect}` : null"
+    class="weather-page column items-center justify-center q-pa-lg text-blue-grey-10"
+    :class="
+      forecast
+        ? [`weather-page--rain-${forecast.rainRisk.effect}`, forecast.rainRisk.pageBackground]
+        : 'bg-blue-grey-1'
+    "
   >
     <div class="app-shell column full-width">
       <header class="row items-center q-gutter-x-sm q-px-xs q-py-sm">
