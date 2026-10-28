@@ -1,14 +1,14 @@
 <template>
   <q-page
     class="weather-page column items-center justify-center q-pa-lg bg-blue-grey-1 text-blue-grey-10"
+    :class="forecast ? `weather-page--rain-${forecast.rainRisk.effect}` : null"
   >
     <div class="app-shell column full-width">
-      <header class="app-header row items-center q-gutter-x-sm q-px-xs q-py-sm">
+      <header class="row items-center q-gutter-x-sm q-px-xs q-py-sm">
         <q-avatar
           class="brand-mark"
           size="34px"
           rounded
-          color="light-blue-1"
           text-color="light-blue-9"
           aria-hidden="true"
         >
@@ -23,7 +23,6 @@
         <q-card
           class="weather-panel column col items-center justify-center q-py-xl q-px-lg text-center"
           flat
-          bordered
           tag="section"
           aria-live="polite"
           aria-atomic="true"
@@ -101,7 +100,7 @@
               <span>chance máxima hoje</span>
             </p>
             <div
-              class="current-condition row items-center q-gutter-x-md q-py-md q-mt-lg full-width bg-blue-grey-1 text-left"
+              class="current-condition row items-center q-gutter-x-md q-py-md q-mt-lg full-width bg-blue-grey-11 text-left"
               role="group"
               aria-label="Condição meteorológica atual"
             >
